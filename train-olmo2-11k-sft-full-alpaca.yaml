@@ -1,0 +1,53 @@
+### model
+model_name_or_path: /mnt/tixisuo/xiaoyi/llamafactory/models/olmo2-1b-pt-11000/
+trust_remote_code: true
+
+### wandb
+#report_to: wandb
+#run_name: olmo_sft_test
+
+### method
+stage: sft  #train satge：cpt\sft\dpo
+do_train: true
+finetuning_type: full  # SFT type：full\lora
+lora_alpha: 32 # 1
+lora_dropout: 0.1
+lora_rank: 16 # 2
+lora_target: all
+
+### dataset
+dataset: alpaca_en_demo
+dataset_dir: /mnt/tixisuo/liujie/sft/llama/data/
+template: default
+cutoff_len: 2048  # max sample length, If exceeded, truncate
+max_samples: 100000 # max train_sample size, set -1 to train all the data
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: /mnt/tixisuo/liujie/sft/llama/output/olmo2-1b-sft-full-alpaca-test
+logging_steps: 10
+save_steps: 500
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: false
+report_to: none  # Monitoring tool choices: [none, wandb, tensorboard, swanlab, mlflow] 
+
+### train
+per_device_train_batch_size: 16  # Global batch size=per_device_train_batch_size * gradient_accumulation_steps * GPUs
+gradient_accumulation_steps: 1
+learning_rate: 1.0e-5
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true # bf16/fp16
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+
+### eval
+# eval_dataset: alpaca_en_demo
+# val_size: 0.1
+# per_device_eval_batch_size: 1
+# eval_strategy: steps
+# eval_steps: 500

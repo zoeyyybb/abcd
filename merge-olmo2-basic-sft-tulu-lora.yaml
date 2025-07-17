@@ -1,0 +1,14 @@
+### examples/merge_lora/llama3_lora_sft.yaml
+### model
+model_name_or_path: /mnt/tixisuo/xiaoyi/llamafactory/models/olmo2-1b-pt-11000/
+adapter_name_or_path: /mnt/tixisuo/liujie/sft/llama/output/olmo2-1b-sft-lora-tulu-adapter
+template: default
+finetuning_type: lora
+trust_remote_code: true
+
+### export
+export_dir: /mnt/tixisuo/xiaoyi/llamafactory/models/olmo2-1b-11k-sft-lora-tulu
+export_size: 2
+export_device: cpu
+export_legacy_format: false
+# tp_plan: 'auto'
